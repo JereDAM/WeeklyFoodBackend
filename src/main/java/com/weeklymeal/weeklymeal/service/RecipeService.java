@@ -1,6 +1,7 @@
 package com.weeklymeal.weeklymeal.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,5 +37,24 @@ public class RecipeService {
 	public String deleteRecipe(Long id) {
 		recipesRepository.deleteById(id);
 		return "Receta eliminada";
+	}
+	
+	//Updates a repository
+	public ResponseEntity<Recipe> updateRecipe(Long id, Recipe newRecipe) {
+		Optional<Recipe> optionalRecipe = recipesRepository.findById(id);
+		
+		if (optionalRecipe.isPresent()) {
+			Recipe existingRecipe = optionalRecipe.get();
+			existingRecipe.setName(newRecipe.getName());
+			existingRecipe.setIngredients(newRecipe.getIngredients());
+			existingRecipe.setSteps(newRecipe.getSteps());
+			existingRecipe.setLabel(newRecipe.getLabel());
+			existingRecipe.setDescription(newRecipe.getDescription());
+			Recipe updatedRecipe = recipesRepository.save(existingRecipe);
+			return ResponseEntity.ok(updatedRecipe);
+		}else {
+			return ResponseEntity.notFound().build();
+		}
+		
 	}
 }
