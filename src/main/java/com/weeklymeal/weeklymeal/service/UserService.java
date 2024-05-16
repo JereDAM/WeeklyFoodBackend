@@ -11,5 +11,4 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
-	
 }
