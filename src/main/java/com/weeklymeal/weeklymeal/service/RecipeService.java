@@ -40,7 +40,7 @@ public class RecipeService {
 		return "Receta eliminada";
 	}
 	
-	//Updates a repository
+	//Updates a recipe
 	public ResponseEntity<Recipe> updateRecipe(Long id, Recipe newRecipe) {
 		Optional<Recipe> optionalRecipe = recipesRepository.findById(id);
 		
