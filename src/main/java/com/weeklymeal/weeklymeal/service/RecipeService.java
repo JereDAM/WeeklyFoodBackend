@@ -64,7 +64,7 @@ public class RecipeService {
 		try {
 			List<Recipe> recipeList = recipesRepository.findByUserId(userId);
 			if(recipeList.isEmpty()) {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("\"There are not such course registered\"");
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are no recipes");
 			} else {
 				List<Recipe> userRecipes = new ArrayList<>();
 				for(Recipe recipe: recipeList) {

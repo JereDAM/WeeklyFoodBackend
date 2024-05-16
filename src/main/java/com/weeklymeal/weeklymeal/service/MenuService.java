@@ -1,5 +1,6 @@
 package com.weeklymeal.weeklymeal.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +51,26 @@ public class MenuService {
 			return ResponseEntity.ok(updatedMenu);
 		}else {
 			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	//Gets all user menus
+	public ResponseEntity<?> findUserMenus(Long userId){
+		try {
+			List<Menu> menuList = menuRepository.findMenusByUserId(userId);
+			if(menuList.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are no menus");
+			}else {
+				List<Menu> userMenus = new ArrayList<>();
+				for(Menu menus : menuList) {
+					userMenus.add(menus);
+				}
+				return ResponseEntity
+						.status(HttpStatus.OK)
+						.body(userMenus);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body("There was an error finding user menus");
 		}
 	}
 	
