@@ -1,5 +1,6 @@
 package com.weeklymeal.weeklymeal.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,5 +57,25 @@ public class RecipeService {
 			return ResponseEntity.notFound().build();
 		}
 		
+	}
+	
+	//Get all recipes from a user
+	public ResponseEntity<?> findUserRecipes(Long userId){
+		try {
+			List<Recipe> recipeList = recipesRepository.findByUserId(userId);
+			if(recipeList.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("\"There are not such course registered\"");
+			} else {
+				List<Recipe> userRecipes = new ArrayList<>();
+				for(Recipe recipe: recipeList) {
+					userRecipes.add(recipe);
+				}
+				return ResponseEntity
+						.status(HttpStatus.OK)
+						.body(userRecipes);
+			}
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body("There was an error finding user recipes");
+		}
 	}
 }
