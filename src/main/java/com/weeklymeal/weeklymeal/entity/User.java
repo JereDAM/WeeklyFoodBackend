@@ -1,6 +1,7 @@
 package com.weeklymeal.weeklymeal.entity;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -43,5 +44,4 @@ public class User {
 	
 	@OneToMany(mappedBy = "user")
 	private List<Recipe>recipes;
-	
 }

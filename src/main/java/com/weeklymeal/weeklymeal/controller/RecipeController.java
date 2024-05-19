@@ -42,8 +42,8 @@ public class RecipeController {
 	}
 	
 	//Create a new recipe
-	@PostMapping("/recipe")
-	public ResponseEntity<Recipe> createRecipe(@RequestBody Recipe recipe, @PathVariable Long userId){
+	@PostMapping("/recipe/{userId}")
+	public Recipe createRecipe(@RequestBody Recipe recipe, @PathVariable Long userId){
 		return recipeService.createRecipe(recipe, userId);
 	}
 	

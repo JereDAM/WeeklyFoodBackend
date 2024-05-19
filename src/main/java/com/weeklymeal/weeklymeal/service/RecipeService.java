@@ -34,15 +34,13 @@ public class RecipeService {
 	}
 	
 	//Creates a recipe
-	public ResponseEntity<Recipe> createRecipe(Recipe recipe, Long idUser){
-		User user = userRepository.findById(idUser).get();
+	public Recipe createRecipe(Recipe recipe, Long userId) {
+		User user = userRepository.findById(userId).get();
 		List<Recipe> totalRecipes = recipesRepository.findAll();
 		totalRecipes.add(recipe);
-		user.setRecipes(totalRecipes);
 		recipe.setUser(user);
-		
-		recipesRepository.save(recipe);
-		return ResponseEntity.status(HttpStatus.CREATED).body(recipe);
+		user.setRecipes(totalRecipes);
+		return recipesRepository.save(recipe);
 	}
 	
 	//Delete a recipe via Id
