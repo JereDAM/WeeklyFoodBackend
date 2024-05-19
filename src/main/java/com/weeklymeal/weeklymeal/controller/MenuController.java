@@ -24,26 +24,37 @@ public class MenuController {
 	@Autowired
 	MenuService menuService;
 	
+	//Get all menus
 	@GetMapping("/menu")
-	public List<Menu> Allmenus(){
+	public List<Menu> allmenus(){
 		return menuService.findAllMenus();
 	}
 	
+	//Get an specific menu
 	@GetMapping("/menu/{idMenu}")
 	public Menu findByMenuId(@PathVariable Long idMenu) {
 		return menuService.findById(idMenu);
 	}
 	
+	//Get all menus from a user
+	@GetMapping("/menu/{userId}")
+	public ResponseEntity<?> allUserMenus(@PathVariable Long userId){
+		return menuService.findUserMenus(userId);
+	}
+	
+	//Create a menu
 	@PostMapping("/menu")
 	public ResponseEntity<Menu> createMenu(@RequestBody Menu menu, @PathVariable Long idUser, @RequestBody List<Recipe> recipeList){
 		return menuService.createMenu(menu, idUser, recipeList);
 	}
 	
+	//Deletes a menu via id
 	@DeleteMapping("/menu/{menuId}")
 	public String DeleteMenu(@PathVariable Long menuId) {
 		return menuService.deleteMenu(menuId);
 	}
 	
+	//Update a menu via id
 	@PutMapping("/menu/{menuId}")
 	public ResponseEntity<Menu> updateMenu(@PathVariable Long menuId, @RequestBody Menu menu) {
 		return menuService.updateMenu(menuId, menu);
