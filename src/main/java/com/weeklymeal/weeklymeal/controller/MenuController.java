@@ -50,7 +50,7 @@ public class MenuController {
 	
 	//Deletes a menu via id
 	@DeleteMapping("/menu/{menuId}")
-	public String DeleteMenu(@PathVariable Long menuId) {
+	public String deleteMenu(@PathVariable Long menuId) {
 		return menuService.deleteMenu(menuId);
 	}
 	
