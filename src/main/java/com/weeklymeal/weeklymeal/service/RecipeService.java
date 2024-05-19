@@ -39,6 +39,7 @@ public class RecipeService {
 		List<Recipe> totalRecipes = recipesRepository.findAll();
 		totalRecipes.add(recipe);
 		user.setRecipes(totalRecipes);
+		recipe.setUser(user);
 		
 		recipesRepository.save(recipe);
 		return ResponseEntity.status(HttpStatus.CREATED).body(recipe);

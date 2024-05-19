@@ -10,13 +10,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.weeklymeal.weeklymeal.entity.Menu;
+import com.weeklymeal.weeklymeal.entity.Recipe;
+import com.weeklymeal.weeklymeal.entity.User;
 import com.weeklymeal.weeklymeal.repository.MenuRepository;
+import com.weeklymeal.weeklymeal.repository.UserRepository;
 
 @Service
 public class MenuService {
 
 	@Autowired
 	MenuRepository menuRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	//Get a menu
 	public Menu findById(Long id) {
@@ -29,7 +35,15 @@ public class MenuService {
 	}
 	
 	//Create a new menu
-	public ResponseEntity<Menu> createMenu(Menu menu){
+	public ResponseEntity<Menu> createMenu(Menu menu, Long idUser, List<Recipe> recipeList){
+		
+		User user = userRepository.findById(idUser).get();
+		List<Menu> totalMenus = menuRepository.findAll();
+		totalMenus.add(menu);
+		user.setMenus(totalMenus);
+		menu.setUser(user);
+		menu.setRecipes(recipeList);
+		
 		menuRepository.save(menu);
 		return ResponseEntity.status(HttpStatus.CREATED).body(menu);
 	}
@@ -73,5 +87,4 @@ public class MenuService {
 			return ResponseEntity.internalServerError().body("There was an error finding user menus");
 		}
 	}
-	
 }

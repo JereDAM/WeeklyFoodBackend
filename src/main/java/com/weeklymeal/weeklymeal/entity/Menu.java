@@ -37,8 +37,7 @@ public class Menu {
 	@Column(name = "created")
 	private Date created;
 	
-	@OneToMany
-	@JoinColumn(name = "recipe_id")
+	@OneToMany(mappedBy = "menu")
 	private List<Recipe> recipes;
 	
 	@ManyToOne

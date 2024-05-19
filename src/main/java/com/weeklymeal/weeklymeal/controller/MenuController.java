@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.weeklymeal.weeklymeal.entity.Menu;
+import com.weeklymeal.weeklymeal.entity.Recipe;
 import com.weeklymeal.weeklymeal.service.MenuService;
 
 @RestController
@@ -34,8 +35,8 @@ public class MenuController {
 	}
 	
 	@PostMapping("/menu")
-	public ResponseEntity<Menu> createMenu(@RequestBody Menu menu){
-		return menuService.createMenu(menu);
+	public ResponseEntity<Menu> createMenu(@RequestBody Menu menu, @PathVariable Long idUser, @RequestBody List<Recipe> recipeList){
+		return menuService.createMenu(menu, idUser, recipeList);
 	}
 	
 	@DeleteMapping("/menu/{menuId}")

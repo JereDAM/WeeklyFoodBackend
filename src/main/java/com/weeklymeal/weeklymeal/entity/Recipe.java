@@ -47,4 +47,7 @@ public class Recipe {
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	@ManyToOne
+	@JoinColumn(name = "menu_id")
+	private Menu menu;
 }
