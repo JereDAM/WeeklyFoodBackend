@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.weeklymeal.weeklymeal.dto.UserDto;
 import com.weeklymeal.weeklymeal.entity.User;
 import com.weeklymeal.weeklymeal.service.UserService;
 
@@ -37,7 +38,7 @@ public class UserController {
 	
 	//Create a new user
 	@PostMapping("/user")
-	public ResponseEntity<User> createUser(@RequestBody User user){
+	public ResponseEntity<UserDto> createUser(@RequestBody User user){
 		return userService.createUser(user);
 	}
 	

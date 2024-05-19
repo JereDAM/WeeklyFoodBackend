@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.weeklymeal.weeklymeal.dto.UserDto;
+import com.weeklymeal.weeklymeal.dto.UserDtoMapper;
 import com.weeklymeal.weeklymeal.entity.User;
 import com.weeklymeal.weeklymeal.repository.UserRepository;
 
@@ -27,10 +29,12 @@ public class UserService {
 		return userRepository.findAll();
 	}
 	
-	//Create a new user
-	public ResponseEntity<User> createUser(User user){
+	//Create a new user 
+	//The response will only return username and email for security reasons
+	public ResponseEntity<UserDto> createUser(User user){
 		userRepository.save(user);
-		return ResponseEntity.status(HttpStatus.CREATED).body(user);
+		UserDto userDto = UserDtoMapper.toUserDTO(user);
+		return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
 	}
 	
 	//Delete a user via id
