@@ -39,12 +39,10 @@ public class User {
 	@Column(name = "password", nullable = false)
 	private String password;
 	
-	@OneToMany
-	@JoinColumn(name = "menu_id")
+	@OneToMany(mappedBy = "user")
 	private List<Menu>menus;
 	
-	@OneToMany
-	@JoinColumn(name = "recipe_id")
+	@OneToMany(mappedBy = "user")
 	private List<Recipe>recipes;
 	
 }

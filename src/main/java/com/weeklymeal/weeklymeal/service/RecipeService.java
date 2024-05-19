@@ -10,13 +10,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.weeklymeal.weeklymeal.entity.Recipe;
+import com.weeklymeal.weeklymeal.entity.User;
 import com.weeklymeal.weeklymeal.repository.RecipesRepository;
+import com.weeklymeal.weeklymeal.repository.UserRepository;
 
 @Service
 public class RecipeService {
 
 	@Autowired
 	RecipesRepository recipesRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	//Get a recipes via id
 	public Recipe findById(Long id) {
@@ -29,7 +34,12 @@ public class RecipeService {
 	}
 	
 	//Creates a recipe
-	public ResponseEntity<Recipe> createRecipe(Recipe recipe){
+	public ResponseEntity<Recipe> createRecipe(Recipe recipe, Long idUser){
+		User user = userRepository.findById(idUser).get();
+		List<Recipe> totalRecipes = recipesRepository.findAll();
+		totalRecipes.add(recipe);
+		user.setRecipes(totalRecipes);
+		
 		recipesRepository.save(recipe);
 		return ResponseEntity.status(HttpStatus.CREATED).body(recipe);
 	}
