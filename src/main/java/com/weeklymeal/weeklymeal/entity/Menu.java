@@ -1,7 +1,10 @@
 package com.weeklymeal.weeklymeal.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,10 +35,11 @@ public class Menu {
 	private Long id;
 	
 	@Column(name = "date")
-	private Date date;
+	private LocalDate date;
 	
 	@Column(name = "created")
-	private Date created;
+	private LocalDateTime created;
+	
 	
 	@OneToMany(mappedBy = "menu")
 	private List<Recipe> recipes;
