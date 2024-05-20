@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.weeklymeal.weeklymeal.dto.RecipeDto;
+import com.weeklymeal.weeklymeal.dto.RecipeDtoMapper;
 import com.weeklymeal.weeklymeal.entity.Recipe;
 import com.weeklymeal.weeklymeal.entity.User;
 import com.weeklymeal.weeklymeal.repository.RecipesRepository;
@@ -34,13 +36,15 @@ public class RecipeService {
 	}
 	
 	//Creates a recipe
-	public Recipe createRecipe(Recipe recipe, Long userId) {
-		User user = userRepository.findById(userId).get();
-		List<Recipe> totalRecipes = recipesRepository.findAll();
-		totalRecipes.add(recipe);
+	public ResponseEntity<RecipeDto> createRecipe(Recipe recipe, Long userId) {
+		User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+		
 		recipe.setUser(user);
-		user.setRecipes(totalRecipes);
-		return recipesRepository.save(recipe);
+		RecipeDto recipeDto = RecipeDtoMapper.toRecipeDto(recipe);
+		Recipe savedRecipe = recipesRepository.save(recipe);
+		user.getRecipes().add(savedRecipe);
+		userRepository.save(user);
+		return ResponseEntity.status(HttpStatus.CREATED).body(recipeDto);
 	}
 	
 	//Delete a recipe via Id
@@ -75,9 +79,11 @@ public class RecipeService {
 			if(recipeList.isEmpty()) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are no recipes");
 			} else {
-				List<Recipe> userRecipes = new ArrayList<>();
+	
+				List<RecipeDto> userRecipes = new ArrayList<>();
 				for(Recipe recipe: recipeList) {
-					userRecipes.add(recipe);
+					RecipeDto recipeDto = RecipeDtoMapper.toRecipeDto(recipe);
+					userRecipes.add(recipeDto);
 				}
 				return ResponseEntity
 						.status(HttpStatus.OK)

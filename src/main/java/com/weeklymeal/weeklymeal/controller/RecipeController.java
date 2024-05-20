@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.weeklymeal.weeklymeal.dto.RecipeDto;
 import com.weeklymeal.weeklymeal.entity.Recipe;
 import com.weeklymeal.weeklymeal.service.RecipeService;
 
@@ -43,7 +44,7 @@ public class RecipeController {
 	
 	//Create a new recipe
 	@PostMapping("/recipe/{userId}")
-	public Recipe createRecipe(@RequestBody Recipe recipe, @PathVariable Long userId){
+	public ResponseEntity<RecipeDto> createRecipe(@RequestBody Recipe recipe, @PathVariable Long userId){
 		return recipeService.createRecipe(recipe, userId);
 	}
 	

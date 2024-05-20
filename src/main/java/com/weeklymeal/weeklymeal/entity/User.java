@@ -4,6 +4,8 @@ package com.weeklymeal.weeklymeal.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,9 +41,11 @@ public class User {
 	@Column(name = "password", nullable = false)
 	private String password;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Menu>menus;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
-	private List<Recipe>recipes;
+	private List<Recipe>recipes = new ArrayList<>();
 }
