@@ -43,7 +43,7 @@ public class MenuController {
 	}
 	
 	//Create a menu
-	@PostMapping("/menu")
+	@PostMapping("/menu/{idUser}")
 	public ResponseEntity<Menu> createMenu(@RequestBody Menu menu, @PathVariable Long idUser, @RequestBody List<Recipe> recipeList){
 		return menuService.createMenu(menu, idUser, recipeList);
 	}
