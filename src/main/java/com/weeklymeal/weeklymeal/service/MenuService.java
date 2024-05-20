@@ -87,4 +87,15 @@ public class MenuService {
 			return ResponseEntity.internalServerError().body("There was an error finding user menus");
 		}
 	}
+	
+	//Gets last menu created
+    public ResponseEntity<Menu> getLastCreatedMenu() {
+        Menu lastMenu = menuRepository.findTopByOrderByCreatedDesc();
+        if (lastMenu != null) {
+            return ResponseEntity.ok(lastMenu);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+	
 }

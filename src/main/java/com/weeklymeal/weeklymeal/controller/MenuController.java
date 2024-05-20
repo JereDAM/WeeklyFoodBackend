@@ -60,5 +60,11 @@ public class MenuController {
 		return menuService.updateMenu(menuId, menu);
 	}
 	
+	//Get latest menu
+	@GetMapping("/menu/latest")
+    public ResponseEntity<Menu> getLastCreatedMenu() {
+        return menuService.getLastCreatedMenu();
+    }
+	
 
 }
