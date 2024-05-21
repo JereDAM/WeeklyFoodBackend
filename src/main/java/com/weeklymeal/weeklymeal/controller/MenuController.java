@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.weeklymeal.weeklymeal.dto.MenuDto;
 import com.weeklymeal.weeklymeal.dto.MenuRequest;
 import com.weeklymeal.weeklymeal.entity.Menu;
-import com.weeklymeal.weeklymeal.entity.Recipe;
 import com.weeklymeal.weeklymeal.service.MenuService;
 
 @RestController
@@ -43,12 +42,6 @@ public class MenuController {
 	public ResponseEntity<?> allUserMenus(@PathVariable Long userId){
 		return menuService.findUserMenus(userId);
 	}
-	
-//	//Create a menu
-//	@PostMapping("/menu/{idUser}")
-//	public ResponseEntity<Menu> createMenu(@RequestBody Menu menu, @PathVariable Long idUser, @RequestBody List<Recipe> recipeList){
-//		return menuService.createMenu(menu, idUser, recipeList);
-//	}
 	
 	//Create a menu
 	@PostMapping("/menu/{idUser}")
