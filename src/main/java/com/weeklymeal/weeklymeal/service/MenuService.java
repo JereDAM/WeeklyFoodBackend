@@ -15,7 +15,6 @@ import com.weeklymeal.weeklymeal.dto.RecipeDto;
 import com.weeklymeal.weeklymeal.dto.RecipeDtoMapper;
 import com.weeklymeal.weeklymeal.dto.menuMapper;
 import com.weeklymeal.weeklymeal.entity.Menu;
-import com.weeklymeal.weeklymeal.entity.User;
 import com.weeklymeal.weeklymeal.repository.MenuRepository;
 import com.weeklymeal.weeklymeal.repository.UserRepository;
 
@@ -38,21 +37,8 @@ public class MenuService {
         List<Menu> menus = menuRepository.findAll();
         return menus.stream().map(menuMapper::toMenuDto).collect(Collectors.toList());
     }
-	
-	//Create a new menu
-	/*public ResponseEntity<Menu> createMenu(Menu menu, Long idUser, List<Recipe> recipeList){
-		
-		User user = userRepository.findById(idUser).get();
-		List<Menu> totalMenus = menuRepository.findAll();
-		totalMenus.add(menu);
-		user.setMenus(totalMenus);
-		menu.setUser(user);
-		menu.setRecipes(recipeList);
-		
-		menuRepository.save(menu);
-		return ResponseEntity.status(HttpStatus.CREATED).body(menu);
-	}*/
     
+    //Create a new menu
     public MenuDto createMenu(MenuDto menuDto, List<RecipeDto> recipeDtoList, Long userId) {
         Menu menu = menuMapper.toMenu(menuDto);
         menu.setUser(userRepository.findById(userId).orElse(null));
