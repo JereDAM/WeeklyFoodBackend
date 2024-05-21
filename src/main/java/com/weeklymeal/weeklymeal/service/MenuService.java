@@ -32,10 +32,11 @@ public class MenuService {
 		return menuRepository.findById(id).get();
 	}
 	
-	//Get all menus
-	public List<Menu> findAllMenus(){
-		return menuRepository.findAll();
-	}
+	//Get all menus from database
+    public List<MenuDto> getAllMenus() {
+        List<Menu> menus = menuRepository.findAll();
+        return menus.stream().map(menuMapper::toMenuDto).collect(Collectors.toList());
+    }
 	
 	//Create a new menu
 	public ResponseEntity<Menu> createMenu(Menu menu, Long idUser, List<Recipe> recipeList){
@@ -50,12 +51,6 @@ public class MenuService {
 		menuRepository.save(menu);
 		return ResponseEntity.status(HttpStatus.CREATED).body(menu);
 	}
-	
-	//Get all menus from database
-    public List<MenuDto> getAllMenus() {
-        List<Menu> menus = menuRepository.findAll();
-        return menus.stream().map(menuMapper::toMenuDto).collect(Collectors.toList());
-    }
 	
 	//Delete a menu via ID
 	public String deleteMenu(Long id) {
@@ -78,33 +73,35 @@ public class MenuService {
 	}
 	
 	//Gets all user menus
-	public ResponseEntity<?> findUserMenus(Long userId){
-		try {
-			List<Menu> menuList = menuRepository.findMenusByUserId(userId);
-			if(menuList.isEmpty()) {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are no menus");
-			}else {
-				List<Menu> userMenus = new ArrayList<>();
-				for(Menu menus : menuList) {
-					userMenus.add(menus);
-				}
-				return ResponseEntity
-						.status(HttpStatus.OK)
-						.body(userMenus);
-			}
-		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body("There was an error finding user menus");
-		}
-	}
-	
-	//Gets last menu created
-    public ResponseEntity<Menu> getLastCreatedMenu() {
-        Menu lastMenu = menuRepository.findTopByOrderByCreatedDesc();
-        if (lastMenu != null) {
-            return ResponseEntity.ok(lastMenu);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	public ResponseEntity<?> findUserMenus(Long userId) {
+        try {
+            List<Menu> menuList = menuRepository.findMenusByUserId(userId);
+            if (menuList.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are no menus");
+            } else {
+                List<MenuDto> userMenus = menuList.stream()
+                        .map(menuMapper::toMenuDto)
+                        .collect(Collectors.toList());
+                return ResponseEntity.status(HttpStatus.OK).body(userMenus);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("There was an error finding user menus");
         }
     }
+	
+	//Gets last menu created
+	public ResponseEntity<MenuDto> getLastCreatedMenu() {
+	    MenuDto lastMenuDto = null;
+	    List<MenuDto> allMenus = getAllMenus();
+	    
+	    if (!allMenus.isEmpty()) {
+	    	
+	    	//Obtain the last menu here
+	        lastMenuDto = allMenus.get(allMenus.size() - 1);
+	        return ResponseEntity.ok(lastMenuDto);
+	    } else {
+	        return ResponseEntity.notFound().build();
+	    }
+	}
 	
 }

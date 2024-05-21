@@ -38,7 +38,7 @@ public class MenuController {
 	}
 	
 	//Get all menus from a user
-	@GetMapping("/menu/{userId}")
+	@GetMapping("/menus/{userId}")
 	public ResponseEntity<?> allUserMenus(@PathVariable Long userId){
 		return menuService.findUserMenus(userId);
 	}
@@ -63,7 +63,7 @@ public class MenuController {
 	
 	//Get latest menu
 	@GetMapping("/menu/latest")
-    public ResponseEntity<Menu> getLastCreatedMenu() {
+    public ResponseEntity<MenuDto> getLastCreatedMenu() {
         return menuService.getLastCreatedMenu();
     }
 	

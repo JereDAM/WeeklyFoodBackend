@@ -36,8 +36,8 @@ public class RecipeController {
 		return recipeService.findById(recipeId);
 	}
 	
-	//Get ALL menus FROM a user
-	@GetMapping("recipe/{userId}")
+	//Get ALL recipes FROM a user
+	@GetMapping("recipes/{userId}")
 	public ResponseEntity<?> allUserRecipes(@PathVariable Long userId){
 		return recipeService.findUserRecipes(userId);
 	}
