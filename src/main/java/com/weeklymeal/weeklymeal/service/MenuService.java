@@ -3,12 +3,15 @@ package com.weeklymeal.weeklymeal.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.weeklymeal.weeklymeal.dto.MenuDto;
+import com.weeklymeal.weeklymeal.dto.menuMapper;
 import com.weeklymeal.weeklymeal.entity.Menu;
 import com.weeklymeal.weeklymeal.entity.Recipe;
 import com.weeklymeal.weeklymeal.entity.User;
@@ -47,6 +50,12 @@ public class MenuService {
 		menuRepository.save(menu);
 		return ResponseEntity.status(HttpStatus.CREATED).body(menu);
 	}
+	
+	//Get all menus from database
+    public List<MenuDto> getAllMenus() {
+        List<Menu> menus = menuRepository.findAll();
+        return menus.stream().map(menuMapper::toMenuDto).collect(Collectors.toList());
+    }
 	
 	//Delete a menu via ID
 	public String deleteMenu(Long id) {

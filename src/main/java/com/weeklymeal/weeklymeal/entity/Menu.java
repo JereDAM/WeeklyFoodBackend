@@ -41,9 +41,11 @@ public class Menu {
 	private LocalDateTime created;
 	
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "menu")
 	private List<Recipe> recipes;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
