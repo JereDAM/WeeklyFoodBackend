@@ -44,7 +44,7 @@ public class MenuController {
 	}
 	
 	//Create a menu
-	@PostMapping("/menu/{idUser}")
+	@PostMapping("/menu/create/{idUser}")
     public MenuDto createMenu(@RequestBody MenuRequest createMenuRequest, @PathVariable Long idUser) {
         return menuService.createMenu(createMenuRequest.getMenuDto(), createMenuRequest.getRecipeDtoList(), idUser);
     }
