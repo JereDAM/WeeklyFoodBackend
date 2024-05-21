@@ -1,6 +1,6 @@
 package com.weeklymeal.weeklymeal.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -11,9 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.weeklymeal.weeklymeal.dto.MenuDto;
+import com.weeklymeal.weeklymeal.dto.RecipeDto;
+import com.weeklymeal.weeklymeal.dto.RecipeDtoMapper;
 import com.weeklymeal.weeklymeal.dto.menuMapper;
 import com.weeklymeal.weeklymeal.entity.Menu;
-import com.weeklymeal.weeklymeal.entity.Recipe;
 import com.weeklymeal.weeklymeal.entity.User;
 import com.weeklymeal.weeklymeal.repository.MenuRepository;
 import com.weeklymeal.weeklymeal.repository.UserRepository;
@@ -39,7 +40,7 @@ public class MenuService {
     }
 	
 	//Create a new menu
-	public ResponseEntity<Menu> createMenu(Menu menu, Long idUser, List<Recipe> recipeList){
+	/*public ResponseEntity<Menu> createMenu(Menu menu, Long idUser, List<Recipe> recipeList){
 		
 		User user = userRepository.findById(idUser).get();
 		List<Menu> totalMenus = menuRepository.findAll();
@@ -50,7 +51,15 @@ public class MenuService {
 		
 		menuRepository.save(menu);
 		return ResponseEntity.status(HttpStatus.CREATED).body(menu);
-	}
+	}*/
+    
+    public MenuDto createMenu(MenuDto menuDto, List<RecipeDto> recipeDtoList, Long userId) {
+        Menu menu = menuMapper.toMenu(menuDto);
+        menu.setUser(userRepository.findById(userId).orElse(null));
+        menu.setRecipes(recipeDtoList.stream().map(RecipeDtoMapper::toRecipe).collect(Collectors.toList()));
+        Menu savedMenu = menuRepository.save(menu);
+        return menuMapper.toMenuDto(savedMenu);
+    }
 	
 	//Delete a menu via ID
 	public String deleteMenu(Long id) {
