@@ -36,6 +36,7 @@ public class Seeder implements CommandLineRunner{
 			user.setUserName("SeederUser");
 			user.setEmail("SeederMail@gmail.com");
 			user.setPassword("123");
+			user.setRole(User.ROLE_USER);
 			
 			userRepository.save(user);
 			

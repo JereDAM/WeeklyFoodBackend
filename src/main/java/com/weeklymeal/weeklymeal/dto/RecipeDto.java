@@ -17,5 +17,6 @@ public class RecipeDto {
 	private String name;
 	private String ingredients;
 	private String steps;
+	private String label;
 	private String description;
 }

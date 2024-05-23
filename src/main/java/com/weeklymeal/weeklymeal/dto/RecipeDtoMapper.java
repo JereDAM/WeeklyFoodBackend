@@ -5,7 +5,7 @@ import com.weeklymeal.weeklymeal.entity.Recipe;
 public class RecipeDtoMapper {
 	
 	public static RecipeDto toRecipeDto(Recipe recipe) {
-		return new RecipeDto(recipe.getId(),recipe.getName(),recipe.getIngredients() ,recipe.getSteps(), recipe.getDescription());
+		return new RecipeDto(recipe.getId(),recipe.getName(),recipe.getIngredients() ,recipe.getSteps(), recipe.getLabel(), recipe.getDescription());
 	}
 	
 	public static Recipe toRecipe(RecipeDto recipeDto) {

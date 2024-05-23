@@ -87,21 +87,6 @@ public class MenuService {
         }
     }
 	
-	//Gets last menu created
-//	public ResponseEntity<MenuDto> getLastCreatedMenu(Long userId) {
-//	    MenuDto lastMenuDto = null;
-//	    List<MenuDto> allMenus = (List<MenuDto>) findUserMenus(userId);
-//	    
-//	    if (!allMenus.isEmpty()) {
-//	    	
-//	    	//Obtain the last menu here
-//	        lastMenuDto = allMenus.get(allMenus.size() - 1);
-//	        return ResponseEntity.ok(lastMenuDto);
-//	    } else {
-//	        return ResponseEntity.notFound().build();
-//	    }
-//	}
-	
     public MenuDto getLastCreatedMenu(Long userId) {
         Menu lastMenu = menuRepository.findTopByUserIdOrderByIdDesc(userId);
         if (lastMenu != null) {

@@ -32,6 +32,7 @@ public class UserService {
 	//Create a new user 
 	//The response will only return username and email for security reasons
 	public ResponseEntity<UserDto> createUser(User user){
+		user.setRole(User.ROLE_USER);
 		userRepository.save(user);
 		UserDto userDto = UserDtoMapper.toUserDTO(user);
 		return ResponseEntity.status(HttpStatus.CREATED).body(userDto);

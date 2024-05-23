@@ -42,6 +42,12 @@ public class User {
 	@Column(name = "password", nullable = false)
 	private String password;
 	
+    @Column(name = "role", nullable = false)
+    private String role;
+    
+    public static final String ROLE_ADMIN = "ADMIN";
+    public static final String ROLE_USER = "USER";
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Menu>menus;
