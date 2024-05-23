@@ -1,6 +1,5 @@
 package com.weeklymeal.weeklymeal.seeders;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +120,6 @@ public class Seeder implements CommandLineRunner{
 					
 					Menu menu = new Menu();
 					
-					menu.setDate(LocalDate.now());
 					menu.setCreated(LocalDateTime.now());
 					menu.setRecipes(recipeListSeeder);
 					menu.setUser(user);

@@ -1,6 +1,5 @@
 package com.weeklymeal.weeklymeal.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,9 +32,6 @@ public class Menu {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name = "date")
-	private LocalDate date;
 	
 	@Column(name = "created")
 	private LocalDateTime created;

@@ -1,6 +1,7 @@
 package com.weeklymeal.weeklymeal.service;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +28,8 @@ public class MenuService {
 	@Autowired
 	UserRepository userRepository;
 	
+	
+	
 	//Get a menu
 	public Menu findById(Long id) {
 		return menuRepository.findById(id).get();
@@ -39,10 +42,11 @@ public class MenuService {
     }
     
     //Create a new menu
-    public MenuDto createMenu(MenuDto menuDto, List<RecipeDto> recipeDtoList, Long userId) {
-        Menu menu = menuMapper.toMenu(menuDto);
+    public MenuDto createMenu(List<RecipeDto> recipeDtoList, Long userId) {
+        Menu menu = new Menu();
         menu.setUser(userRepository.findById(userId).orElse(null));
         menu.setRecipes(recipeDtoList.stream().map(RecipeDtoMapper::toRecipe).collect(Collectors.toList()));
+        menu.setCreated(LocalDateTime.now());
         Menu savedMenu = menuRepository.save(menu);
         return menuMapper.toMenuDto(savedMenu);
     }
@@ -59,7 +63,6 @@ public class MenuService {
 		
 		if(optionalMenu.isPresent()) {
 			Menu existingMenu = optionalMenu.get();
-			existingMenu.setDate(newMenu.getDate());
 			Menu updatedMenu = menuRepository.save(existingMenu);
 			return ResponseEntity.ok(updatedMenu);
 		}else {

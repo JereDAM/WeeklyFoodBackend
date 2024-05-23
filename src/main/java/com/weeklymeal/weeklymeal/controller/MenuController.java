@@ -46,7 +46,7 @@ public class MenuController {
 	//Create a menu
 	@PostMapping("/menu/create/{idUser}")
     public MenuDto createMenu(@RequestBody MenuRequest createMenuRequest, @PathVariable Long idUser) {
-        return menuService.createMenu(createMenuRequest.getMenuDto(), createMenuRequest.getRecipeDtoList(), idUser);
+        return menuService.createMenu(createMenuRequest.getRecipeDtoList(), idUser);
     }
 	
 	//Deletes a menu via id

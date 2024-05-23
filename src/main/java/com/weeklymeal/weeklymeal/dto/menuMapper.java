@@ -12,7 +12,6 @@ public class menuMapper {
     public static MenuDto toMenuDto(Menu menu) {
         MenuDto menuDto = new MenuDto();
         menuDto.setId(menu.getId());
-        menuDto.setDate(menu.getDate());
         menuDto.setCreated(menu.getCreated());
         menuDto.setRecipes(menu.getRecipes().stream().map(RecipeDtoMapper::toRecipeDto).collect(Collectors.toList()));
         return menuDto;
@@ -21,7 +20,6 @@ public class menuMapper {
     public static Menu toMenu(MenuDto menuDto) {
         Menu menu = new Menu();
         menu.setId(menuDto.getId());
-        menu.setDate(menuDto.getDate());
         menu.setCreated(menuDto.getCreated());
         
         List<Recipe> recipes = menuDto.getRecipes() != null ? 

@@ -1,6 +1,5 @@
 package com.weeklymeal.weeklymeal.dto;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,7 +17,6 @@ import lombok.ToString;
 public class MenuDto {
 	
 	private Long id;
-	private LocalDate date;
 	private LocalDateTime created;
 	private List<RecipeDto> recipes;
 
