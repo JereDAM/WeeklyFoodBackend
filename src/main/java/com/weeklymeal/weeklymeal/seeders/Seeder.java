@@ -33,12 +33,21 @@ public class Seeder implements CommandLineRunner{
 		if(userRepository.findAll().isEmpty()) {
 			User user = new User();
 			
+			User admin = new User();
+			
 			user.setUserName("SeederUser");
 			user.setEmail("SeederMail@gmail.com");
 			user.setPassword("123");
 			user.setRole(User.ROLE_USER);
 			
+			admin.setUserName("AdminMeal");
+			admin.setEmail("adminMeal@gmail.com");
+			admin.setPassword("123admin");
+			admin.setRole(User.ROLE_ADMIN);
+			
 			userRepository.save(user);
+			
+			userRepository.save(admin);
 			
 			if(recipeRepository.findAll().isEmpty()) {
 				Recipe recipe = new Recipe();
