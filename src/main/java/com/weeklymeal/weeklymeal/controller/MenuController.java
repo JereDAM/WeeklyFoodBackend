@@ -62,9 +62,9 @@ public class MenuController {
 	}
 	
 	//Get latest menu
-	@GetMapping("/menu/latest")
-    public ResponseEntity<MenuDto> getLastCreatedMenu() {
-        return menuService.getLastCreatedMenu();
+	@GetMapping("/menu/latest/{userId}")
+    public MenuDto getLastCreatedMenu(@PathVariable Long userId) {
+        return menuService.getLastCreatedMenu(userId);
     }
 	
 

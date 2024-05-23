@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.weeklymeal.weeklymeal.dto.LoginRequest;
+import com.weeklymeal.weeklymeal.dto.UserDto;
+import com.weeklymeal.weeklymeal.dto.UserDtoMapper;
+import com.weeklymeal.weeklymeal.entity.User;
+import com.weeklymeal.weeklymeal.repository.UserRepository;
 import com.weeklymeal.weeklymeal.service.AuthService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,15 +25,20 @@ public class LoginController {
 	@Autowired
 	AuthService authService;
 	
+	@Autowired
+	UserRepository userRepository;
+	
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest loginRequest, HttpServletRequest request) {
+    public UserDto login(@RequestBody LoginRequest loginRequest, HttpServletRequest request) {
         String userName = loginRequest.getUserName();
         String password = loginRequest.getPassword();
 
         if (authService.authenticate(userName, password)) {
             HttpSession session = request.getSession(true);
             session.setAttribute("user", userName);
-            return "Login successful";
+            
+            User user = userRepository.findByUserName(userName);
+            return UserDtoMapper.toUserDTO(user);
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password");
         }

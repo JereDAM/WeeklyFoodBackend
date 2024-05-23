@@ -13,7 +13,9 @@ public interface MenuRepository extends JpaRepository<Menu, Long>{
 
 	List<Menu> findMenusByUserId(Long userId);
 	
-	@Query("SELECT m FROM Menu m ORDER BY m.created DESC")
-    Menu findTopByOrderByCreatedDesc();
+//	@Query("SELECT m FROM Menu m ORDER BY m.created DESC")
+//    Menu findTopByOrderByCreatedDesc();
+	
+	Menu findTopByUserIdOrderByIdDesc(Long userId);
 	
 }
