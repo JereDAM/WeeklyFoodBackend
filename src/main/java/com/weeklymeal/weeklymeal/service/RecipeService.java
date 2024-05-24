@@ -70,6 +70,7 @@ public class RecipeService {
 			existingRecipe.setSteps(newRecipe.getSteps());
 			existingRecipe.setLabel(newRecipe.getLabel());
 			existingRecipe.setDescription(newRecipe.getDescription());
+			existingRecipe.setWeekDay(newRecipe.getWeekDay());
 			Recipe updatedRecipe = recipesRepository.save(existingRecipe);
 			return ResponseEntity.ok(updatedRecipe);
 		}else {
