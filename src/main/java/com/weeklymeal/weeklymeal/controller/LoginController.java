@@ -33,6 +33,7 @@ public class LoginController {
         String userName = loginRequest.getUserName();
         String password = loginRequest.getPassword();
 
+        //Authenticates the user
         if (authService.authenticate(userName, password)) {
             HttpSession session = request.getSession(true);
             session.setAttribute("user", userName);

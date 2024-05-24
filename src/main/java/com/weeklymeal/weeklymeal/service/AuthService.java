@@ -15,6 +15,7 @@ public class AuthService {
 	@Autowired
 	 private final UserRepository userRepository;
 
+	//Finds the user via username and then checks the password
 	    public boolean authenticate(String username, String password) {
 	        User user = userRepository.findByUserName(username);
 	        return user != null && user.getPassword().equals(password);

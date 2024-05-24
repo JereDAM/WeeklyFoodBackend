@@ -32,6 +32,7 @@ public class UserService {
 	//Create a new user 
 	//The response will only return username and email for security reasons
 	public ResponseEntity<UserDto> createUser(User user){
+		//Set the default role and creates the user
 		user.setRole(User.ROLE_USER);
 		userRepository.save(user);
 		UserDto userDto = UserDtoMapper.toUserDTO(user);
@@ -47,8 +48,11 @@ public class UserService {
 	
 	//Update the user
 	public ResponseEntity<User> updateUser(Long id, User newUser){
+		
+		//Searches the user via id
 		Optional<User> optionalUser = userRepository.findById(id);
 		
+		//If user is found, sets the new values, if not, returns a message
 		if(optionalUser.isPresent()) {
 			User existingUser = optionalUser.get();
 			existingUser.setUserName(newUser.getUserName());

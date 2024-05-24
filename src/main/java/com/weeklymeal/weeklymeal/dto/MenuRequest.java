@@ -9,4 +9,6 @@ import lombok.Setter;
 @Setter
 public class MenuRequest {
     private List<RecipeDto> recipeDtoList;
+    
+    private Long userId;
 }

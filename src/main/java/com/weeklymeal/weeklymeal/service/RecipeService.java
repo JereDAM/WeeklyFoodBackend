@@ -37,8 +37,11 @@ public class RecipeService {
 	
 	//Creates a recipe
 	public ResponseEntity<RecipeDto> createRecipe(Recipe recipe, Long userId) {
+		
+		//Searches the user via id, if not found throws an exception
 		User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 		
+		//Creates the recipe
 		recipe.setUser(user);
 		RecipeDto recipeDto = RecipeDtoMapper.toRecipeDto(recipe);
 		Recipe savedRecipe = recipesRepository.save(recipe);
@@ -55,8 +58,11 @@ public class RecipeService {
 	
 	//Updates a recipe
 	public ResponseEntity<Recipe> updateRecipe(Long id, Recipe newRecipe) {
+		
+		//Finds the recipe via id
 		Optional<Recipe> optionalRecipe = recipesRepository.findById(id);
 		
+		//Sets the new values to the recipe if found, if not, returns a not found message
 		if (optionalRecipe.isPresent()) {
 			Recipe existingRecipe = optionalRecipe.get();
 			existingRecipe.setName(newRecipe.getName());
@@ -75,11 +81,12 @@ public class RecipeService {
 	//Get all recipes from a user
 	public ResponseEntity<?> findUserRecipes(Long userId){
 		try {
+			//Returns a list from a user, if empty returns a message
 			List<Recipe> recipeList = recipesRepository.findByUserId(userId);
 			if(recipeList.isEmpty()) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are no recipes");
 			} else {
-	
+				//Add to a list if found and returns it
 				List<RecipeDto> userRecipes = new ArrayList<>();
 				for(Recipe recipe: recipeList) {
 					RecipeDto recipeDto = RecipeDtoMapper.toRecipeDto(recipe);

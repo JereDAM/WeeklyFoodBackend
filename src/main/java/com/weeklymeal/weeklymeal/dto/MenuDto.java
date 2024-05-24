@@ -1,7 +1,7 @@
 package com.weeklymeal.weeklymeal.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +18,6 @@ public class MenuDto {
 	
 	private Long id;
 	private LocalDateTime created;
-	private List<RecipeDto> recipes;
+	private Set<RecipeDto> recipes;
 
 }
