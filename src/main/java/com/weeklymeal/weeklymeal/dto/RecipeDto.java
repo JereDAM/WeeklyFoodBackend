@@ -19,4 +19,5 @@ public class RecipeDto {
 	private String steps;
 	private String label;
 	private String description;
+	private String weekDay;
 }

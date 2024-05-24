@@ -46,6 +46,9 @@ public class Recipe {
 	@Column(name = "description")
 	private String description;
 	
+	@Column(name = "weekDay")
+	private String weekDay;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;

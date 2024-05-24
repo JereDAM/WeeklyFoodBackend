@@ -11,7 +11,8 @@ public class RecipeDtoMapper {
             recipe.getIngredients(),
             recipe.getSteps(),
             recipe.getLabel(),
-            recipe.getDescription()
+            recipe.getDescription(),
+            recipe.getWeekDay()
         );
     }
     

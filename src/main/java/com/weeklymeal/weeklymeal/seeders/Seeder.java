@@ -62,6 +62,7 @@ public class Seeder implements CommandLineRunner{
                     recipe.setSteps("muchos pasos");
                     recipe.setLabel("fibra");
                     recipe.setDescription("una semilla para probar");
+                    recipe.setWeekDay("");
                     recipe.setUser(user);
                     recipeRepository.save(recipe);
                     recipes.add(recipe);
